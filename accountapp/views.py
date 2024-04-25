@@ -4,7 +4,7 @@ from django.contrib.auth.views import PasswordChangeView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, DeleteView
 
 from accountapp.models import HelloWorld
 
@@ -27,7 +27,7 @@ def hello_world(request):
 class AccountCreateView(CreateView):
     model = User
     form_class = UserCreationForm
-    success_url = reverse_lazy('accountapp:hello_world')
+    success_url = reverse_lazy('accountapp:login')
     template_name = 'accountapp/create.html'
 
 
@@ -41,3 +41,9 @@ class AccountUpdateView(PasswordChangeView):
     model = User
     success_url = reverse_lazy('accountapp:hello_world')
     template_name = 'accountapp/update.html'
+
+
+class AccountDeleteView(DeleteView):
+    model = User
+    success_url = reverse_lazy('accountapp:login')
+    template_name = 'accountapp/delete.html'
